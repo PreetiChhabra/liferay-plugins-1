@@ -7,8 +7,6 @@
 <%
 ContactSearchContainer searchContainer = (ContactSearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
 
-String redirect = searchContainer.getIteratorURL().toString();
-
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 Contact contact = (Contact)row.getObject();
