@@ -1,12 +1,25 @@
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+<%@page import="com.liferay.portal.security.permission.ActionKeys"%>
+<%@page import="com.liferay.portal.service.permission.PortalPermissionUtil"%>
+<%@page import="org.rsc.liferay.contact.NoSuchContactException"%>
+
+<%@ include file="/html/init.jsp" %>
 
 <portlet:defineObjects />
 
 <h3>Contacts</h3>
+<liferay-ui:error exception="<%= NoSuchContactException.class %>" message="contact-not-found" />
 <liferay-ui:search-container searchContainer="${searchContainer}" 
-headerNames="firstName,lastName,mail,phone"
-    orderByCol="${searchContainer.orderByCol}" orderByType="${searchContainer.orderByType}">
+headerNames="firstName,lastName,mail,phone" orderByCol="${searchContainer.orderByCol}" orderByType="${searchContainer.orderByType}">
+	<aui:nav-bar>
+	    <aui:nav>
+	        <liferay-portlet:renderURL varImpl="addContactURL">
+	            <portlet:param name="action" value="add" />
+	        </liferay-portlet:renderURL>
+	        <aui:nav-item href="<%= addContactURL.toString() %>" iconCssClass="icon-plus" label="add" />
+	    </aui:nav>
+	    <aui:nav-bar-search cssClass="pull-right" file="/html/contact/list_search.jsp" searchContainer="${searchContainer}" />
+	</aui:nav-bar>
+	
     <liferay-ui:search-container-row
         className="org.rsc.liferay.contact.model.Contact"
         escapedModel="<%= true %>"
@@ -16,7 +29,7 @@ headerNames="firstName,lastName,mail,phone"
             name="lastName"
             property="lastName"
             orderable="true"
-        />      
+        />
         <liferay-ui:search-container-column-text
             name="firstName"
             property="firstName"
@@ -29,10 +42,12 @@ headerNames="firstName,lastName,mail,phone"
         <liferay-ui:search-container-column-text
             name="phone"
             property="phone"
-        />      
+        />
+        <liferay-ui:search-container-column-jsp
+            align="right"
+            path="/html/contact/list_contact_action.jsp"
+        />
     </liferay-ui:search-container-row>
 
     <liferay-ui:search-iterator type="regular"/>
 </liferay-ui:search-container>
-
-

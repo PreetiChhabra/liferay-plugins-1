@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 
-public class ContactSearchContainer extends SearchContainer<Contact>{
+public class ContactSearchContainer extends SearchContainer<Contact> {
 
 	static List<String> headerNames = new ArrayList<String>();
 	static Map<String, String> orderableHeaders = new HashMap<String, String>();
@@ -33,26 +33,37 @@ public class ContactSearchContainer extends SearchContainer<Contact>{
 		headerNames.add("lastName");
 		headerNames.add("mail");
 		headerNames.add("phone");
-		
+
 		orderableHeaders.put("firstName", "firstName");
 		orderableHeaders.put("lastName", "lastName");
 	}
-	
+
 	public static final String EMPTY_RESULTS_MESSAGE = "no-contacts-were-found";
-	
-	public ContactSearchContainer(PortletRequest portletRequest, RenderResponse renderResponse) {
+
+	public ContactSearchContainer(PortletRequest portletRequest,
+			RenderResponse renderResponse) {
 		this(portletRequest, renderResponse.createRenderURL());
 	}
-	
-	public ContactSearchContainer(PortletRequest portletRequest, PortletURL iteratorURL) {
 
-		super(portletRequest, iteratorURL, headerNames, EMPTY_RESULTS_MESSAGE);
+	public ContactSearchContainer(PortletRequest portletRequest,
+			PortletURL iteratorURL) {
+
+		super(portletRequest, new ContactDisplayTerms(portletRequest),
+				new ContactDisplayTerms(portletRequest), DEFAULT_CUR_PARAM,
+				DEFAULT_DELTA, iteratorURL, headerNames, EMPTY_RESULTS_MESSAGE);
+
+		ContactDisplayTerms displayTerms = (ContactDisplayTerms) getDisplayTerms();
+
+		iteratorURL.setParameter(ContactDisplayTerms.LAST_NAME,
+				displayTerms.getLastName());
+		iteratorURL.setParameter(ContactDisplayTerms.FIRST_NAME,
+				displayTerms.getFirstName());
 
 		try {
-			String orderByCol = ParamUtil.getString(
-				portletRequest, "orderByCol");
-			String orderByType = ParamUtil.getString(
-				portletRequest, "orderByType");
+			String orderByCol = ParamUtil.getString(portletRequest,
+					"orderByCol");
+			String orderByType = ParamUtil.getString(portletRequest,
+					"orderByType");
 
 			if (Validator.isNull(orderByType)) {
 				orderByType = "asc";
@@ -64,15 +75,14 @@ public class ContactSearchContainer extends SearchContainer<Contact>{
 			this.setOrderByCol(orderByCol);
 			this.setOrderByType(orderByType);
 			this.setOrderByComparator(orderByComparator);
-			
-			List<Contact> contactList = ContactLocalServiceUtil.findAll(
-					this.getStart(), this.getEnd(),
-					this.getOrderByComparator());
+
+			List<Contact> contactList = ContactLocalServiceUtil
+					.findAll(this.getStart(), this.getEnd(),
+							this.getOrderByComparator());
 			this.setTotal(ContactLocalServiceUtil.countAll());
 			this.setResults(contactList);
-		}
-		catch (Exception e) {
-			_log.error(e);
+		} catch (Exception e) {
+			LOG.error(e);
 		}
 	}
 
@@ -96,6 +106,8 @@ public class ContactSearchContainer extends SearchContainer<Contact>{
 			return new ContactDefaultComparator(orderByAsc);
 		}
 	}
-	private static Log _log = LogFactoryUtil.getLog(ContactSearchContainer.class);
-	
+
+	private static Log LOG = LogFactoryUtil
+			.getLog(ContactSearchContainer.class);
+
 }
