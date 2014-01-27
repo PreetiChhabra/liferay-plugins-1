@@ -33,7 +33,11 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 @RequestMapping("VIEW")
 public class ContactController {
 
-	private static Log LOG = LogFactoryUtil.getLog(ContactController.class);
+	private static final Log LOG = LogFactoryUtil.getLog(ContactController.class);
+	
+	private static final String LIST_VIEW = "contact/list";
+	
+	private static final String EDIT_VIEW = "contact/edit";
 
 	@RenderMapping
 	public String listContacts(RenderRequest renderRequest,
@@ -42,17 +46,29 @@ public class ContactController {
 		ContactSearchContainer searchContainer = new ContactSearchContainer(
 				renderRequest, renderResponse);
 		map.put("searchContainer", searchContainer);
-		return "contact/list";
+		return LIST_VIEW;
+	}
+	
+	@RenderMapping(params = "action=add")
+	public String addContactForm(RenderRequest renderRequest,
+			RenderResponse renderResponse, Map<String, Object> map) {
+
+		map.put("contact", new ContactImpl());
+
+		return EDIT_VIEW;
 	}
 
-	@ActionMapping(params = "action=delete")
-	public void deleteContact(@RequestParam("contactId") Long contactId,
-			ActionRequest actionRequest, ActionResponse actionResponse,
-			Model model) throws IOException, PortletException {
+	@ActionMapping(params = "action=add")
+	public void addContact(ActionRequest actionRequest,
+			ActionResponse actionResponse, Model model,
+			@ModelAttribute("contact") ContactImpl contact, BindingResult result) {
 		try {
-			ContactLocalServiceUtil.deleteContact(contactId.longValue());
-			SessionMessages.add(actionRequest, "contact-deleted-successfully");
-		} catch (SystemException | PortalException ex) {
+			contact.setPersonId(CounterLocalServiceUtil.increment(Contact.class
+					.getName()));
+			ContactLocalServiceUtil.addContact(contact);
+			SessionMessages.add(actionRequest, "contact-added-successfully");
+		} catch (Exception ex) {
+			SessionErrors.add(actionRequest, "fields-required");
 			LOG.error(ex.toString());
 		}
 	}
@@ -64,7 +80,7 @@ public class ContactController {
 
 		try {
 			map.put("contact", ContactLocalServiceUtil.getContact(contactId.longValue()));
-			return "contact/edit";
+			return EDIT_VIEW;
 		} catch (PortalException | SystemException ex) {
 			SessionErrors.add(renderRequest, "contact-not-founded");
 			LOG.error(ex.toString());
@@ -84,27 +100,15 @@ public class ContactController {
 			LOG.error(ex.toString());
 		}
 	}	
-	
-	@RenderMapping(params = "action=add")
-	public String addContactForm(RenderRequest renderRequest,
-			RenderResponse renderResponse, Map<String, Object> map) {
 
-		map.put("contact", new ContactImpl());
-
-		return "contact/edit";
-	}
-
-	@ActionMapping(params = "action=add")
-	public void addContact(ActionRequest actionRequest,
-			ActionResponse actionResponse, Model model,
-			@ModelAttribute("contact") ContactImpl contact, BindingResult result) {
+	@ActionMapping(params = "action=delete")
+	public void deleteContact(@RequestParam("contactId") Long contactId,
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			Model model) throws IOException, PortletException {
 		try {
-			contact.setPersonId(CounterLocalServiceUtil.increment(Contact.class
-					.getName()));
-			ContactLocalServiceUtil.addContact(contact);
-			SessionMessages.add(actionRequest, "contact-added-successfully");
-		} catch (Exception ex) {
-			SessionErrors.add(actionRequest, "fields-required");
+			ContactLocalServiceUtil.deleteContact(contactId.longValue());
+			SessionMessages.add(actionRequest, "contact-deleted-successfully");
+		} catch (SystemException | PortalException ex) {
 			LOG.error(ex.toString());
 		}
 	}
