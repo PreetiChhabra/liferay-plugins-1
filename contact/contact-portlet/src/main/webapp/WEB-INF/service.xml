@@ -1,0 +1,19 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="org.rsc.liferay.contact">
+    <namespace>rsc</namespace>
+    <entity name="Contact" local-service="true" remote-service="true">
+        <!-- Columns -->
+        <column name="personId" type="long" primary="true" />
+        <column name="companyId" type="long" />
+        <column name="lastName" type="String" />
+        <column name="firstName" type="String" />
+        <column name="mail" type="String" />
+        <column name="phone" type="String" />
+        <!-- Order -->
+        <order by="asc">
+            <order-column name="lastName"  case-sensitive="false" />
+            <order-column name="firstName" case-sensitive="false" />
+        </order>
+    </entity>
+</service-builder>
