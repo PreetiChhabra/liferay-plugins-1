@@ -67,7 +67,7 @@ public class ContactController {
 					.getName()));
 			ContactLocalServiceUtil.addContact(contact);
 			SessionMessages.add(actionRequest, "contact-added-successfully");
-		} catch (Exception ex) {
+		} catch (SystemException ex) {
 			SessionErrors.add(actionRequest, "fields-required");
 			LOG.error(ex.toString());
 		}

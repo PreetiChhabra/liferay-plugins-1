@@ -5,6 +5,9 @@
 <%@ include file="/html/init.jsp" %>
 
 <portlet:defineObjects />
+<liferay-ui:success key="contact-added-successfully" message="contact-added-successfully" translateMessage="true"/>
+<liferay-ui:success key="contact-updated-successfully" message="contact-updated-successfully" translateMessage="true"/>
+<liferay-ui:success key="contact-deleted-successfully" message="contact-deleted-successfully" translateMessage="true"/>
 
 <h3>Contacts</h3>
 <liferay-ui:error exception="<%= NoSuchContactException.class %>" message="contact-not-found" />
