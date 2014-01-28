@@ -53,6 +53,12 @@ public class ContactLocalServiceClpInvoker {
     private String[] _methodParameterTypes42;
     private String _methodName43;
     private String[] _methodParameterTypes43;
+    private String _methodName44;
+    private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
+    private String _methodName47;
+    private String[] _methodParameterTypes47;
 
     public ContactLocalServiceClpInvoker() {
         _methodName0 = "addContact";
@@ -161,6 +167,27 @@ public class ContactLocalServiceClpInvoker {
 
         _methodParameterTypes43 = new String[] {
                 "int", "int", "com.liferay.portal.kernel.util.OrderByComparator"
+            };
+
+        _methodName44 = "search";
+
+        _methodParameterTypes44 = new String[] {
+                "long", "java.lang.String", "java.util.LinkedHashMap", "int",
+                "int", "com.liferay.portal.kernel.search.Sort"
+            };
+
+        _methodName45 = "search";
+
+        _methodParameterTypes45 = new String[] {
+                "long", "java.lang.String", "java.lang.String",
+                "java.util.LinkedHashMap", "boolean", "int", "int",
+                "com.liferay.portal.kernel.search.Sort"
+            };
+
+        _methodName47 = "getContacts";
+
+        _methodParameterTypes47 = new String[] {
+                "com.liferay.portal.kernel.search.Hits"
             };
     }
 
@@ -286,6 +313,33 @@ public class ContactLocalServiceClpInvoker {
             return ContactLocalServiceUtil.findAll(((Integer) arguments[0]).intValue(),
                 ((Integer) arguments[1]).intValue(),
                 (com.liferay.portal.kernel.util.OrderByComparator) arguments[2]);
+        }
+
+        if (_methodName44.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+            return ContactLocalServiceUtil.search(((Long) arguments[0]).longValue(),
+                (java.lang.String) arguments[1],
+                (java.util.LinkedHashMap<java.lang.String, java.lang.Object>) arguments[2],
+                ((Integer) arguments[3]).intValue(),
+                ((Integer) arguments[4]).intValue(),
+                (com.liferay.portal.kernel.search.Sort) arguments[5]);
+        }
+
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return ContactLocalServiceUtil.search(((Long) arguments[0]).longValue(),
+                (java.lang.String) arguments[1],
+                (java.lang.String) arguments[2],
+                (java.util.LinkedHashMap<java.lang.String, java.lang.Object>) arguments[3],
+                ((Boolean) arguments[4]).booleanValue(),
+                ((Integer) arguments[5]).intValue(),
+                ((Integer) arguments[6]).intValue(),
+                (com.liferay.portal.kernel.search.Sort) arguments[7]);
+        }
+
+        if (_methodName47.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+            return ContactLocalServiceUtil.getContacts((com.liferay.portal.kernel.search.Hits) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

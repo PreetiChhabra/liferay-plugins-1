@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.messaging.proxy.ProxyModeThreadLocal;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 
@@ -65,6 +66,7 @@ public class ContactController {
 		try {
 			contact.setPersonId(CounterLocalServiceUtil.increment(Contact.class
 					.getName()));
+			ProxyModeThreadLocal.setForceSync(true);
 			ContactLocalServiceUtil.addContact(contact);
 			SessionMessages.add(actionRequest, "contact-added-successfully");
 		} catch (SystemException ex) {
@@ -93,6 +95,7 @@ public class ContactController {
 			ActionResponse actionResponse, Model model,
 			@ModelAttribute("contact") ContactImpl contact, BindingResult result) {
 		try {
+			ProxyModeThreadLocal.setForceSync(true);
 			ContactLocalServiceUtil.updateContact(contact);
 			SessionMessages.add(actionRequest, "contact-updated-successfully");
 		} catch (SystemException ex) {
@@ -106,6 +109,7 @@ public class ContactController {
 			ActionRequest actionRequest, ActionResponse actionResponse,
 			Model model) throws IOException, PortletException {
 		try {
+			ProxyModeThreadLocal.setForceSync(true);
 			ContactLocalServiceUtil.deleteContact(contactId.longValue());
 			SessionMessages.add(actionRequest, "contact-deleted-successfully");
 		} catch (SystemException | PortalException ex) {

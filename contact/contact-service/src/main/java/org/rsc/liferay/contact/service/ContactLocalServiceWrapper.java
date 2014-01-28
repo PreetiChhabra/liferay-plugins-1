@@ -295,6 +295,33 @@ public class ContactLocalServiceWrapper implements ContactLocalService,
         return _contactLocalService.findAll(start, end, orderByComparator);
     }
 
+    @Override
+    public com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String keywords,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        int start, int end, com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _contactLocalService.search(companyId, keywords, params, start,
+            end, sort);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String firstName, java.lang.String lastName,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        boolean andSearch, int start, int end,
+        com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _contactLocalService.search(companyId, firstName, lastName,
+            params, andSearch, start, end, sort);
+    }
+
+    @Override
+    public java.util.List<org.rsc.liferay.contact.model.Contact> getContacts(
+        com.liferay.portal.kernel.search.Hits hits) {
+        return _contactLocalService.getContacts(hits);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

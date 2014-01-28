@@ -246,4 +246,23 @@ public interface ContactLocalService extends BaseLocalService,
         int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String keywords,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        int start, int end, com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String firstName, java.lang.String lastName,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        boolean andSearch, int start, int end,
+        com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<org.rsc.liferay.contact.model.Contact> getContacts(
+        com.liferay.portal.kernel.search.Hits hits);
 }

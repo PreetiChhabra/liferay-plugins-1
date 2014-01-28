@@ -9,4 +9,6 @@ public class Field {
 	public static final String PHONE = "phone";
 	
 	public static final String MAIL = "mail";
+	
+	public static final String ENTRY_CLASS_PK = "entryClassPK";
 }

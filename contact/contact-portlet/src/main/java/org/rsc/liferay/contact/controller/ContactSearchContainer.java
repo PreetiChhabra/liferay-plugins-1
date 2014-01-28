@@ -19,9 +19,13 @@ import org.rsc.liferay.contact.service.ContactLocalServiceUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.util.portlet.PortletProps;
 
 public class ContactSearchContainer extends SearchContainer<Contact> {
 
@@ -68,18 +72,30 @@ public class ContactSearchContainer extends SearchContainer<Contact> {
 			if (Validator.isNull(orderByType)) {
 				orderByType = "asc";
 			}
-			OrderByComparator orderByComparator = getOrderByComparator(
-					orderByCol, orderByType);
 
 			this.setOrderableHeaders(orderableHeaders);
 			this.setOrderByCol(orderByCol);
 			this.setOrderByType(orderByType);
-			this.setOrderByComparator(orderByComparator);
-		
-			List<Contact> contactList = ContactLocalServiceUtil
-					.findAll(this.getStart(), this.getEnd(),
-							this.getOrderByComparator());
-			this.setTotal(ContactLocalServiceUtil.countAll());
+			this.setOrderByComparator(getOrderByComparator(orderByCol,
+					orderByType));
+
+			List<Contact> contactList = new ArrayList<Contact>();
+			if (Boolean
+					.parseBoolean(PortletProps.get("contact.search.with.index"))) {
+				Sort sort = SortFactoryUtil.getSort(Contact.class,
+						this.getOrderByCol(), this.getOrderByType());
+				Hits hits = ContactLocalServiceUtil.search(0,
+						displayTerms.getKeywords(), null, this.getStart(),
+						this.getEnd(), sort);
+				if (hits.getLength() > 0) {
+					contactList = ContactLocalServiceUtil.getContacts(hits);
+				}
+				this.setTotal(hits.getLength());
+			} else {
+				contactList = ContactLocalServiceUtil.findAll(this.getStart(),
+						this.getEnd(), this.getOrderByComparator());
+				this.setTotal(ContactLocalServiceUtil.countAll());
+			}
 			this.setResults(contactList);
 		} catch (Exception e) {
 			LOG.error(e);

@@ -286,6 +286,30 @@ public class ContactLocalServiceUtil {
         return getService().findAll(start, end, orderByComparator);
     }
 
+    public static com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String keywords,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        int start, int end, com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().search(companyId, keywords, params, start, end, sort);
+    }
+
+    public static com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String firstName, java.lang.String lastName,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        boolean andSearch, int start, int end,
+        com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .search(companyId, firstName, lastName, params, andSearch,
+            start, end, sort);
+    }
+
+    public static java.util.List<org.rsc.liferay.contact.model.Contact> getContacts(
+        com.liferay.portal.kernel.search.Hits hits) {
+        return getService().getContacts(hits);
+    }
+
     public static void clearService() {
         _service = null;
     }

@@ -52,6 +52,12 @@ public class ContactLocalServiceClp implements ContactLocalService {
     private String[] _methodParameterTypes21;
     private String _methodName22;
     private String[] _methodParameterTypes22;
+    private String _methodName23;
+    private String[] _methodParameterTypes23;
+    private String _methodName24;
+    private String[] _methodParameterTypes24;
+    private String _methodName25;
+    private String[] _methodParameterTypes25;
 
     public ContactLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -162,6 +168,27 @@ public class ContactLocalServiceClp implements ContactLocalService {
 
         _methodParameterTypes22 = new String[] {
                 "int", "int", "com.liferay.portal.kernel.util.OrderByComparator"
+            };
+
+        _methodName23 = "search";
+
+        _methodParameterTypes23 = new String[] {
+                "long", "java.lang.String", "java.util.LinkedHashMap", "int",
+                "int", "com.liferay.portal.kernel.search.Sort"
+            };
+
+        _methodName24 = "search";
+
+        _methodParameterTypes24 = new String[] {
+                "long", "java.lang.String", "java.lang.String",
+                "java.util.LinkedHashMap", "boolean", "int", "int",
+                "com.liferay.portal.kernel.search.Sort"
+            };
+
+        _methodName25 = "getContacts";
+
+        _methodParameterTypes25 = new String[] {
+                "com.liferay.portal.kernel.search.Hits"
             };
     }
 
@@ -777,6 +804,118 @@ public class ContactLocalServiceClp implements ContactLocalService {
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
             }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<org.rsc.liferay.contact.model.Contact>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String keywords,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        int start, int end, com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName23,
+                    _methodParameterTypes23,
+                    new Object[] {
+                        companyId,
+                        
+                    ClpSerializer.translateInput(keywords),
+                        
+                    ClpSerializer.translateInput(params),
+                        
+                    start,
+                        
+                    end,
+                        
+                    ClpSerializer.translateInput(sort)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.search.Hits) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.search.Hits search(long companyId,
+        java.lang.String firstName, java.lang.String lastName,
+        java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+        boolean andSearch, int start, int end,
+        com.liferay.portal.kernel.search.Sort sort)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName24,
+                    _methodParameterTypes24,
+                    new Object[] {
+                        companyId,
+                        
+                    ClpSerializer.translateInput(firstName),
+                        
+                    ClpSerializer.translateInput(lastName),
+                        
+                    ClpSerializer.translateInput(params),
+                        
+                    andSearch,
+                        
+                    start,
+                        
+                    end,
+                        
+                    ClpSerializer.translateInput(sort)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.search.Hits) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.util.List<org.rsc.liferay.contact.model.Contact> getContacts(
+        com.liferay.portal.kernel.search.Hits hits) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName25,
+                    _methodParameterTypes25,
+                    new Object[] { ClpSerializer.translateInput(hits) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
 
             if (t instanceof RuntimeException) {
                 throw (RuntimeException) t;

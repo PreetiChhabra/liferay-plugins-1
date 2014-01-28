@@ -47,8 +47,8 @@ public class ContactIndexer extends BaseIndexer {
 		Contact contact = (Contact) obj;
 
 		Document document = getBaseModelDocument(this.getPortletId(), contact);
-		document.addKeyword(Field.FIRST_NAME, contact.getFirstName());
-		document.addKeyword(Field.LAST_NAME, contact.getLastName());
+		document.addText(Field.FIRST_NAME, contact.getFirstName());
+		document.addText(Field.LAST_NAME, contact.getLastName());
 		document.addKeyword(Field.PHONE, contact.getPhone());
 		document.addKeyword(Field.MAIL, contact.getMail());
 
@@ -68,7 +68,7 @@ public class ContactIndexer extends BaseIndexer {
 		} else if (orderByCol.equals("lastName")) {
 			return Field.LAST_NAME;
 		} else {
-			return orderByCol;
+			return Field.FIRST_NAME;
 		}
 	}
 
