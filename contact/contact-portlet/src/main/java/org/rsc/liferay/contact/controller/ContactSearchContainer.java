@@ -75,7 +75,7 @@ public class ContactSearchContainer extends SearchContainer<Contact> {
 			this.setOrderByCol(orderByCol);
 			this.setOrderByType(orderByType);
 			this.setOrderByComparator(orderByComparator);
-
+		
 			List<Contact> contactList = ContactLocalServiceUtil
 					.findAll(this.getStart(), this.getEnd(),
 							this.getOrderByComparator());
