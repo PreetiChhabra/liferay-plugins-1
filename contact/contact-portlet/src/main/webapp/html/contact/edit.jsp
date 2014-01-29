@@ -4,8 +4,8 @@
 <%@ include file="/html/init.jsp" %>
 
 <%
-Contact contact = (Contact)request.getAttribute("contact");
-long contactId = BeanParamUtil.getLong(contact, request, "personId");
+Contact contactRow = (Contact)request.getAttribute("contactRow");
+long contactId = BeanParamUtil.getLong(contactRow, request, "personId");
 %>
 <portlet:actionURL var="editContactURL">
 </portlet:actionURL>
@@ -18,21 +18,21 @@ long contactId = BeanParamUtil.getLong(contact, request, "personId");
     <aui:input name="personId" type="hidden" value="<%= contactId %>" />
     <liferay-ui:header
         backURL="<%= backURL %>"
-        localizeTitle="<%= (contact == null) %>"
-        title='<%= (contact == null) ? "new-contact" : contact.getLastName()+ " "+contact.getFirstName() %>'
+        localizeTitle="<%= (contactRow == null) %>"
+        title='<%= (contactRow == null) ? "new-contact" : contactRow.getLastName()+ " "+contactRow.getFirstName() %>'
     />
     <aui:fieldset>
         <aui:column>
-            <aui:input type="text" name="lastName" label="First Name" bean="${contact}">
+            <aui:input type="text" name="lastName" label="First Name" bean="${contactRow}">
                 <aui:validator name="required" errorMessage="firstname-required"/>
             </aui:input>
-            <aui:input type="text" name="firstName" label="Last Name" bean="${contact}">
+            <aui:input type="text" name="firstName" label="Last Name" bean="${contactRow}">
                 <aui:validator name="required" errorMessage="lastname-required"/>
             </aui:input>
-            <aui:input type="text" name="mail" label="Email" bean="${contact}">
+            <aui:input type="text" name="mail" label="Email" bean="${contactRow}">
                 <aui:validator name="email" />
             </aui:input>
-            <aui:input type="text" name="phone" label="Phone No" bean="${contact}">
+            <aui:input type="text" name="phone" label="Phone No" bean="${contactRow}">
                 <aui:validator name="digits" />
             </aui:input>
             <aui:button type="submit" value="Save" />

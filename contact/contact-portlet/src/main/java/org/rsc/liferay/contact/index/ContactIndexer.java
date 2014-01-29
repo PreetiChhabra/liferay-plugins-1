@@ -26,6 +26,8 @@ public class ContactIndexer extends BaseIndexer {
 	/** The Constant CLASS_NAMES. */
 	public static final String[] CLASS_NAMES = { Contact.class.getName() };
 
+	private static final String PORTLET_ID = "contact";
+	
 	@Override
 	public String[] getClassNames() {
 		return CLASS_NAMES;
@@ -33,7 +35,7 @@ public class ContactIndexer extends BaseIndexer {
 
 	@Override
 	public String getPortletId() {
-		return "contact-portlet";
+		return PORTLET_ID;
 	}
 
 	@Override

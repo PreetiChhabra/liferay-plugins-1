@@ -13,7 +13,7 @@ ContactDisplayTerms displayTerms = (ContactDisplayTerms)searchContainer.getDispl
     displayTerms="<%= displayTerms %>"
     id="toggle_id_contact_search">
     <aui:fieldset>
-        <aui:input name="<%= displayTerms.LAST_NAME %>" size="20" value="<%= displayTerms.getLastName() %>" />
-        <aui:input name="<%= displayTerms.FIRST_NAME %>" size="20" value="<%= displayTerms.getFirstName() %>" />
+        <aui:input name="<%= ContactDisplayTerms.LAST_NAME %>" size="20" value="<%= displayTerms.getLastName() %>" />
+        <aui:input name="<%= ContactDisplayTerms.FIRST_NAME %>" size="20" value="<%= displayTerms.getFirstName() %>" />
     </aui:fieldset>
 </liferay-ui:search-toggle>

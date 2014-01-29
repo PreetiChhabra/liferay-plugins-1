@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.proxy.ProxyModeThreadLocal;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.permission.PortletPermissionUtil;
 
 @Controller("contactController")
 @RequestMapping("VIEW")
@@ -82,7 +84,7 @@ public class ContactController {
 			@RequestParam("contactId") Long contactId) {
 
 		try {
-			map.put("contact", ContactLocalServiceUtil.getContact(contactId.longValue()));
+			map.put("contactRow", ContactLocalServiceUtil.getContact(contactId.longValue()));
 			return EDIT_VIEW;
 		} catch (PortalException | SystemException ex) {
 			SessionErrors.add(renderRequest, "contact-not-founded");
@@ -94,7 +96,7 @@ public class ContactController {
 	@ActionMapping(params = "action=update")
 	public void updateContact(ActionRequest actionRequest,
 			ActionResponse actionResponse, Model model,
-			@ModelAttribute("contact") ContactImpl contact, BindingResult result) {
+			@ModelAttribute("contactRow") ContactImpl contact, BindingResult result) {
 		try {
 			ProxyModeThreadLocal.setForceSync(true);
 			ContactLocalServiceUtil.updateContact(contact);
@@ -116,5 +118,12 @@ public class ContactController {
 		} catch (SystemException | PortalException ex) {
 			LOG.error(ex.toString());
 		}
+	}
+	
+	public static boolean hasPortletPermission(PermissionChecker permissionChecker, String actionId) throws PortalException, SystemException{
+		return PortletPermissionUtil.contains(permissionChecker, "contact_WAR_contactportlet", actionId);
+	}
+	public static boolean hasContactPermission(PermissionChecker permissionChecker, String actionId) throws PortalException, SystemException{
+		return PortletPermissionUtil.contains(permissionChecker, Contact.class.getName(), actionId);
 	}
 }

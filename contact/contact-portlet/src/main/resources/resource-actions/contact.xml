@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 6.1.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_6_1_0.dtd">
+
+<resource-action-mapping>
+	<portlet-resource>
+		<portlet-name>contact</portlet-name>
+		<permissions>
+			<supports>
+				<action-key>ACCESS_IN_CONTROL_PANEL</action-key>
+				<action-key>ADD_TO_PAGE</action-key>
+				<action-key>ADD_CONTACT</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+                <action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>ADD_CONTACT</action-key>
+			</guest-unsupported>
+		</permissions>
+	</portlet-resource>
+	<model-resource>
+		<model-name>org.rsc.liferay.contact.model.Contact</model-name>
+		<portlet-ref>
+			<portlet-name>contact</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>DELETE_CONTACT</action-key>
+				<action-key>UPDATE_CONTACT</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>DELETE_CONTACT</action-key>
+				<action-key>UPDATE_CONTACT</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+</resource-action-mapping>
