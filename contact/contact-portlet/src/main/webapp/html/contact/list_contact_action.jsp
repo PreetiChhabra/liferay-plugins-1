@@ -1,14 +1,11 @@
 <%@ page import="org.rsc.liferay.contact.model.Contact"%>
-<%@ page import="org.rsc.liferay.contact.controller.ContactSearchContainer"%>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys"%>
 <%@ page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+
+<%@ include file="/html/init.jsp" %>
+
 <%
-ContactSearchContainer searchContainer = (ContactSearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
-
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
-
 Contact contact = (Contact)row.getObject();
 %>
 <liferay-ui:icon-menu>

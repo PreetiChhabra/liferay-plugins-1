@@ -1,8 +1,7 @@
-<%@page import="org.rsc.liferay.contact.controller.ContactDisplayTerms"%>
 <%@ include file="/html/init.jsp" %>
 
-<%@page import="org.rsc.liferay.contact.controller.ContactSearchContainer"%>
-
+<%@page import="org.rsc.liferay.contact.search.ContactDisplayTerms"%>
+<%@page import="org.rsc.liferay.contact.search.ContactSearchContainer"%>
 <%
 ContactSearchContainer searchContainer = (ContactSearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
 

@@ -11,6 +11,7 @@ import javax.portlet.RenderResponse;
 
 import org.rsc.liferay.contact.model.Contact;
 import org.rsc.liferay.contact.model.impl.ContactImpl;
+import org.rsc.liferay.contact.search.ContactSearchContainer;
 import org.rsc.liferay.contact.service.ContactLocalServiceUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

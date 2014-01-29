@@ -1,4 +1,4 @@
-package org.rsc.liferay.contact.controller;
+package org.rsc.liferay.contact.search;
 
 import java.util.ArrayList;
 import java.util.HashMap;

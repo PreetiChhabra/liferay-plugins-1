@@ -2,6 +2,7 @@
 <%@page import="com.liferay.portal.kernel.bean.BeanParamUtil"%>
 <%@page import="org.rsc.liferay.contact.model.Contact"%>
 <%@ include file="/html/init.jsp" %>
+
 <%
 Contact contact = (Contact)request.getAttribute("contact");
 long contactId = BeanParamUtil.getLong(contact, request, "personId");
