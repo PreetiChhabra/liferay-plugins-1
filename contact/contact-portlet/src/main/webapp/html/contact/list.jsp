@@ -15,6 +15,7 @@
 <liferay-ui:error exception="<%= NoSuchContactException.class %>" message="contact-not-found" />
 <liferay-ui:search-container searchContainer="${searchContainer}" 
 headerNames="firstName,lastName,mail,phone" orderByCol="${searchContainer.orderByCol}" orderByType="${searchContainer.orderByType}">
+
 	<aui:nav-bar>
 	   <c:if test='<%=ContactController.hasPortletPermission(permissionChecker, ContactActionKeys.ADD_CONTACT) %>'>
 		    <aui:nav>

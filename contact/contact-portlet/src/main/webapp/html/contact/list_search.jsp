@@ -2,9 +2,9 @@
 
 <%@page import="org.rsc.liferay.contact.search.ContactDisplayTerms"%>
 <%@page import="org.rsc.liferay.contact.search.ContactSearchContainer"%>
+
 <%
 ContactSearchContainer searchContainer = (ContactSearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
-
 ContactDisplayTerms displayTerms = (ContactDisplayTerms)searchContainer.getDisplayTerms();
 %>
 <liferay-ui:search-toggle
