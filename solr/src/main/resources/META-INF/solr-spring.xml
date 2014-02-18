@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<beans default-destroy-method="destroy" default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<bean class="com.liferay.portal.spring.context.PortletBeanFactoryPostProcessor" />
+
+	<!-- Solr search engine client -->
+	<bean id="org.rsc.liferay.solr.server.BasicAuthSolrServer"
+		class="org.rsc.liferay.solr.server.BasicAuthSolrServer">
+		<property name="httpRequestInterceptors">
+			<list>
+				<bean class="org.rsc.liferay.solr.interceptor.PreemptiveAuthInterceptor" />
+			</list>
+		</property>
+		<property name="url" value="http://localhost:9080/solr/liferay" />
+	</bean>
+
+	<bean id="org.rsc.liferay.solr.server.LiveServerChecker" class="org.rsc.liferay.solr.server.LiveServerChecker">
+		<property name="delay" value="10" />
+		<property name="solrServerFactory" ref="org.rsc.liferay.solr.server.SolrServerFactory" />
+	</bean>
+	<bean id="org.rsc.liferay.solr.server.SolrServerFactory" class="org.rsc.liferay.solr.server.SolrServerFactory">
+		<property name="solrServers">
+			<map key-type="java.lang.String" value-type="org.apache.solr.client.solrj.SolrServer">
+				<entry key="node1">
+					<ref bean="org.rsc.liferay.solr.server.BasicAuthSolrServer" />
+				</entry>
+			</map>
+		</property>
+		<property name="solrServerSelector">
+			<bean
+				class="org.rsc.liferay.solr.server.LoadBalancedSolrServerSelector" />
+		</property>
+	</bean>
+
+	<!-- Solr search engine adapter -->
+	<bean id="org.rsc.liferay.solr.SolrIndexSearcher" class="org.rsc.liferay.solr.SolrIndexSearcher">
+		<property name="querySuggester" ref="org.rsc.liferay.solr.SolrQuerySuggester" />
+		<property name="solrServer" ref="org.rsc.liferay.solr.server.BasicAuthSolrServer" />
+		<property name="swallowException" value="true" />
+	</bean>
+	<bean id="org.rsc.liferay.solr.SolrIndexWriter" class="org.rsc.liferay.solr.SolrIndexWriter">
+		<property name="commit" value="true" />
+		<property name="solrServer" ref="org.rsc.liferay.solr.server.BasicAuthSolrServer" />
+		<property name="spellCheckIndexWriter" ref="org.rsc.liferay.solr.SolrSpellCheckIndexWriter" />
+	</bean>
+	<bean id="org.rsc.liferay.solr.SolrQuerySuggester" class="org.rsc.liferay.solr.SolrQuerySuggester">
+		<property name="distanceThreshold" value="0.6f" />
+		<property name="NGramQueryBuilder">
+			<bean class="org.rsc.liferay.solr.NGramQueryBuilderImpl" />
+		</property>
+		<property name="solrServer" ref="org.rsc.liferay.solr.server.BasicAuthSolrServer" />
+	</bean>
+	<bean id="org.rsc.liferay.solr.SolrSearchEngineImpl" class="com.liferay.portal.kernel.search.BaseSearchEngine">
+        <property name="booleanClauseFactory">
+            <bean class="org.rsc.liferay.solr.BooleanClauseFactoryImpl" />
+        </property>
+        <property name="booleanQueryFactory">
+            <bean class="org.rsc.liferay.solr.BooleanQueryFactoryImpl" />
+        </property>	
+		<property name="clusteredWrite" value="false" />
+		<property name="indexSearcher" ref="org.rsc.liferay.solr.SolrIndexSearcher" />
+		<property name="indexWriter" ref="org.rsc.liferay.solr.SolrIndexWriter" />
+		<property name="luceneBased" value="true" />
+        <property name="termQueryFactory">
+            <bean class="org.rsc.liferay.solr.TermQueryFactoryImpl" />
+        </property>
+        <property name="termRangeQueryFactory">
+            <bean class="org.rsc.liferay.solr.TermRangeQueryFactoryImpl" />
+        </property>		
+		<property name="vendor" value="SOLR" />
+	</bean>
+	
+	<bean id="org.rsc.liferay.solr.SolrSpellCheckIndexWriter" class="org.rsc.liferay.solr.SolrSpellCheckIndexWriter">
+		<property name="commit" value="true" />
+		<property name="indexWriter" ref="org.rsc.liferay.solr.SolrIndexWriter" />
+		<property name="solrServer" ref="org.rsc.liferay.solr.server.BasicAuthSolrServer" />
+	</bean>
+
+	<!-- Configurator -->
+	<bean id="searchEngineConfigurator.solr" class="com.liferay.portal.kernel.search.PluginSearchEngineConfigurator">
+		<property name="searchEngines">
+			<util:map>
+				<entry key="SYSTEM_ENGINE"
+					value-ref="org.rsc.liferay.solr.SolrSearchEngineImpl" />
+			</util:map>
+		</property>
+	</bean>
+	
+	
+    <bean id="org.rsc.liferay.solr.SolrHelperImpl" class="org.rsc.liferay.solr.SolrHelperImpl">
+        <property name="version" ref="org.apache.lucene.util.Version" />
+    </bean>
+    <bean id="org.apache.lucene.util.Version" class="org.apache.lucene.util.Version" factory-method="valueOf">
+        <constructor-arg value="LUCENE_30" />
+    </bean>
+    <bean id="org.rsc.liferay.solr.SolrHelperUtil" class="org.rsc.liferay.solr.SolrHelperUtil">
+        <property name="solrHelper" ref="org.rsc.liferay.solr.SolrHelperImpl" />
+    </bean>
+    <bean id="org.rsc.liferay.solr.QueryTranslator" class="org.rsc.liferay.solr.QueryTranslatorImpl" />
+    <bean id="org.rsc.liferay.solr.QueryTranslatorUtil" class="org.rsc.liferay.solr.QueryTranslatorUtil">
+        <property name="queryTranslator" ref="org.rsc.liferay.solr.QueryTranslator" />
+    </bean>
+
+</beans>
