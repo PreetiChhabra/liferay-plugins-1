@@ -5,6 +5,14 @@
 	<portlet>
 		<portlet-name>flickr</portlet-name>
 		<icon>/icon.png</icon>
+		<configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction</configuration-action-class>
+		<template-handler>org.rsc.liferay.portlet.flickr.FlickrPortletDisplayTemplateHandler</template-handler>
+		<preferences-unique-per-layout>true</preferences-unique-per-layout>
+		<preferences-owned-by-group>true</preferences-owned-by-group>
+		<use-default-template>true</use-default-template>
+		<instanceable>true</instanceable>
+		<private-request-attributes>false</private-request-attributes>
+		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 	</portlet>

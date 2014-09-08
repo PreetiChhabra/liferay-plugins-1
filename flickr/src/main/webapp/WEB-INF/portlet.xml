@@ -1,23 +1,35 @@
 <?xml version="1.0"?>
 
-<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	version="2.0">
 	<portlet>
 		<portlet-name>flickr</portlet-name>
 		<display-name>flickr</display-name>
-		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
-        <init-param>
-            <name>contextConfigLocation</name>
-            <value>/WEB-INF/spring/flickr-portlet.xml</value>
-        </init-param>
-       <expiration-cache>0</expiration-cache>
-        <supports>
-            <mime-type>text/html</mime-type>
-        </supports>
-        <resource-bundle>content/Language</resource-bundle>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/html/flickr/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>template-path</name>
+			<value>/html/flickr/</value>
+		</init-param>
+		<init-param>
+			<name>config-jsp</name>
+			<value>/html/flickr/config.jsp</value>
+		</init-param>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>config</portlet-mode>
+		</supports>
+		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
-			<title>Flickr</title>
-			<short-title>Flickr</short-title>
-			<keywords>Flickr</keywords>
+			<title>flickr</title>
+			<short-title>flickr</short-title>
+			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

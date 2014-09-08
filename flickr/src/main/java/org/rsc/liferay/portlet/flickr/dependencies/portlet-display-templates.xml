@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<root>
+    <template>
+        <template-key>flickr-column-layout-ftl</template-key>
+        <name>Simple Flickr Column Layout</name>
+        <description>Displays a column with Flickr Photo</description>
+        <language>ftl</language>
+        <script-file>org/rsc/liferay/portlet/flickr/dependencies/portlet_display_template_flickr_column_layout.ftl</script-file>
+        <cacheable>false</cacheable>
+    </template>
+</root>

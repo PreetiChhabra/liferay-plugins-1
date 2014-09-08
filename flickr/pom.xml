@@ -10,12 +10,12 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>flickr</artifactId>
+	<artifactId>flickr-portlet</artifactId>
 	<packaging>war</packaging>
 	<name>flickr Portlet</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<properties>
-		<org.springframework-version>3.0.7.RELEASE</org.springframework-version>
+		
 	</properties>
 	<repositories>
 	   <!-- Specific for flickr4java -->
@@ -76,21 +76,10 @@
 			<artifactId>jsp-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc-portlet</artifactId>
-			<version>${org.springframework-version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.flickr4java</groupId>
-			<artifactId>flickr4java</artifactId>
-			<version>2.6</version>
-		</dependency>
+        <dependency>
+            <groupId>com.flickr4java</groupId>
+            <artifactId>flickr4java</artifactId>
+            <version>2.11</version>
+        </dependency>
 	</dependencies>
 </project>
