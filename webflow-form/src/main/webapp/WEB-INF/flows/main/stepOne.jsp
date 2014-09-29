@@ -1,34 +1,24 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ include file="/WEB-INF/flows/init.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <h2>Edit Form</h2>
 <portlet:actionURL var="actionUrl">
 	<portlet:param name="execution" value="${flowExecutionKey}" />
 </portlet:actionURL>
-<form:form id="claimForm" modelAttribute="claimForm" action="${flowExecutionUrl}">
-	<input type="hidden" name="execution" value="${flowExecutionKey}" />
-	<fieldset>
-		<table>
-			<tr class="field">
-				<td class="label">Last Name:</td>
-				<td class="output"><form:input path="lastname"/></td>
-			</tr>
-			<tr class="field">
-				<td class="label">First Name:</td>
-				<td class="output"><form:input path="firstname"/></td>
-			</tr>
-			<tr class="field">
-				<td class="label">Email:</td>
-				<td class="output"><form:input path="email"/></td>
-			</tr>
-			<tr class="field">
-				<td colspan="2" class="buttonGroup">
-				    <input type="submit" name="_eventId_cancel" value="Back" />&#160;
-				    <input type="submit" name="_eventId_next" value="Next" />&#160;				    
-				</td>
-			</tr>
-		</table>
-	</fieldset>
-</form:form>
+
+<aui:form action="${actionUrl}" method="post" name="claimForm_fm">
+	<aui:input type="hidden" name="execution" value="${flowExecutionKey}" inlineLabel="true" useNamespace="false" />
+    <aui:input type="text" name="lastname" label="First Name" bean="${claimForm}" inlineLabel="true">
+        <!--<aui:validator name="required" errorMessage="firstname-required"/>-->
+    </aui:input>
+    <aui:input type="text" name="firstname" label="Last Name" bean="${claimForm}" inlineLabel="true">
+        <!--<aui:validator name="required" errorMessage="lastname-required"/>-->
+    </aui:input>
+    <aui:input type="text" name="email" label="Email" bean="${claimForm}" inlineLabel="true">
+        <!--<aui:validator name="email" />-->
+    </aui:input>
+    <aui:button type="submit" name="_eventId_cancel" value="Cancel"  />
+	<aui:button type="submit" name="_eventId_next" value="Next" primary="true"/>
+	<input type="submit" name="_eventId_next" value="Next" />&#160;	
+</aui:form>
+

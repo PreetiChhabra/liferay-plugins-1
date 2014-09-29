@@ -2,11 +2,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/webflow-config
-           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd">
+           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Scans for application @Components to deploy -->
+    <context:component-scan base-package="org.rsc.liferay.webflowform" />
+
+	<bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+	
+	<bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
     <!-- Maps portlet modes to handlers --> 
     <bean id="portletModeHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
@@ -49,5 +59,9 @@
         
     <!-- Bootstraps JSR-303 validation and exposes it through Spring's Validator interface -->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
-        
+    
+    <!-- <bean id="portletMultipartResolver"
+        class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver">
+        <property name="maxUploadSize" value="100000"/>
+    </bean>    -->     
 </beans>

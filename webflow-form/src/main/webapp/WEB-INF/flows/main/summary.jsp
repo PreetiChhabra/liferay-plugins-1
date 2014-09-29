@@ -7,7 +7,7 @@
 <portlet:actionURL var="actionUrl">
     <portlet:param name="execution" value="${flowExecutionKey}" />
 </portlet:actionURL>
-<form:form id="claimForm" modelAttribute="claimForm" action="${actionUrl}">
+<form:form id="claimForm" modelAttribute="claimForm" action="${flowExecutionUrl}">
     <input type="hidden" name="execution" value="${flowExecutionKey}" />
     <fieldset>
         <table>
@@ -25,8 +25,7 @@
             </tr>
             <tr class="field">
                 <td colspan="2" class="buttonGroup">
-				    <input type="submit" name="_eventId_previous" value="Back" />&#160;
-				    <input type="submit" name="_eventId_next" value="Confirm" />&#160;	
+				    <input type="submit" name="_eventId_close" value="Confirm" />&#160;	
                 </td>
             </tr>
         </table>

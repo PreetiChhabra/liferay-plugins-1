@@ -2,12 +2,15 @@ package org.rsc.liferay.webflowform.claim;
 
 import org.springframework.stereotype.Controller;
 
-@Controller
+@Controller("claimFormController")
 public class ClaimFormController {
 
 	
 	public ClaimBean buildClaimBean() {
-		return new ClaimBean();
+		ClaimBean claim = new ClaimBean();
+		claim.setFirstname("test");
+		claim.setLastname("test");
+		return claim;
 	}
 	
 }

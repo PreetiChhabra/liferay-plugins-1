@@ -6,23 +6,28 @@
 	<on-start>
 		<evaluate expression="claimFormController.buildClaimBean()" result="flowScope.claimForm"></evaluate>
 	</on-start>
+	
 	<view-state id="stepOne" model="claimForm">
+		<transition on="cancel" to="finish" bind="false" />
 		<transition on="next" to="stepTwo" >
-			
-		</transition>
-		<transition on="cancel" to="cancel" bind="false" />
+		</transition>		
 	</view-state>
 
 	<view-state id="stepTwo" model="claimForm">
-		<transition on="cancel" to="stepOne">
+		<transition on="previous" to="stepOne">
 		</transition>
-		<transition on="next" to="finish">
+		<transition on="next" to="save">
 		</transition>
 	</view-state>
-
-	<action-state id="cancel">
-		<transition on="success" to="enterSearchCriteria" />
+	
+	<action-state id="save">
+		<transition on="success" to="summary" />
 	</action-state>
+	
+	<view-state id="summary" model="claimForm">
+		<transition on="close" to="finish">
+		</transition>
+	</view-state>
 
 	<end-state id="finish" />
 

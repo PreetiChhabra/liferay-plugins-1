@@ -14,19 +14,20 @@
 	<name>webflow-form Portlet</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<springwebflow-version>2.4.0.RELEASE</springwebflow-version>
-		<spring-framework-version>4.0.5.RELEASE</spring-framework-version>
+		<springwebflow-version>2.3.1.RELEASE</springwebflow-version>
+		<spring-framework-version>3.1.2.RELEASE</spring-framework-version>
 		<slf4j-version>1.7.5</slf4j-version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<!-- 
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
 				<version>${spring-framework-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
+			</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 	<build>
@@ -54,22 +55,27 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring-framework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-framework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
+			<version>${spring-framework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc-portlet</artifactId>
+			<version>${spring-framework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
