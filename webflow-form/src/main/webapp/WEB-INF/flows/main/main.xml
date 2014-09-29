@@ -3,24 +3,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="form" class="org.rsc.liferay.webflowform.FormBean"/>
-
-	<view-state id="stepOne" model="FormStepOne">
-		<on-render>
-			<evaluate expression="formService.buildStepOne()"
-				result="requestScope.form" />
-		</on-render>
-		<transition on="next" to="stepTwo">
-			<evaluate expression="formService.validateStepOne(form)" />
+	<on-start>
+		<evaluate expression="claimFormController.buildClaimBean()" result="flowScope.claimForm"></evaluate>
+	</on-start>
+	<view-state id="stepOne" model="claimForm">
+		<transition on="next" to="stepTwo" >
+			
 		</transition>
 		<transition on="cancel" to="cancel" bind="false" />
 	</view-state>
 
-	<view-state id="stepTwo">
-		<transition on="previous" to="stepOne">
+	<view-state id="stepTwo" model="claimForm">
+		<transition on="cancel" to="stepOne">
 		</transition>
-		<transition on="next">
-			<evaluate expression="searchCriteria.nextPage()" />
+		<transition on="next" to="finish">
 		</transition>
 	</view-state>
 

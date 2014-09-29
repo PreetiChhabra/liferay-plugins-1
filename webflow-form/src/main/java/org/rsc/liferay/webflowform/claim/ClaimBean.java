@@ -1,8 +1,8 @@
-package org.rsc.liferay.webflowform;
+package org.rsc.liferay.webflowform.claim;
 
 import java.io.Serializable;
 
-public class FormBean implements Serializable {
+public class ClaimBean implements Serializable {
 
 	private static final long serialVersionUID = 4317327056305789300L;
 

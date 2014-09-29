@@ -9,9 +9,9 @@
 	<packaging>pom</packaging>
 	<name>liferay-plugins</name>
 	<properties>
-		<liferay.version>6.2.10.6</liferay.version>
+		<liferay.version>6.2.10.9</liferay.version>
 		<liferay.maven.plugin.version>6.2.10.6</liferay.maven.plugin.version>
-		<liferay.home>E:/Dev/Liferay/6.2/liferay-portal-6.2-ee-sp5</liferay.home>
+		<liferay.home>D:/Richard/Work/6.2/liferay-portal-6.2-ee-sp8</liferay.home>
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.tomcat.dir>${liferay.home}/tomcat-7.0.42</liferay.tomcat.dir>
 		<liferay.app.server.portal.dir>${liferay.tomcat.dir}/webapps/ROOT</liferay.app.server.portal.dir>
